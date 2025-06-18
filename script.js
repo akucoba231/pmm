@@ -167,6 +167,8 @@ function resetForm() {
         }
 
         document.getElementById('overall-result').style.display = 'none';
+        document.getElementById('all-score-wrapper').style.display = 'none';
+        document.getElementById('export').style.display = 'none';
     }
 }
 
@@ -289,6 +291,10 @@ record.onclick = ()=>{
         }
     }
 
+    data['tanggal'] = getTanggal();
+    document.getElementById('tanggal').textContent = data.tanggal
+
+
     let dataNilai = [];
     if(localStorage.getItem('dataNilai') == null){
         dataNilai[0] = data;
@@ -304,4 +310,97 @@ record.onclick = ()=>{
     document.getElementById('overall-result').style.display = 'block';
     //return "ok";
 
+}
+
+
+function getTanggal(){
+    let d = new Date();
+    let y = d.getFullYear();
+
+    let m = d.getMonth()+1;
+
+    if(m.toString().length > 1){
+        m = m
+    }
+    else {
+        m = `0${m}`
+    }
+
+    let t = d.getDate()
+
+    if(t.toString().length > 1){
+        t = t
+    } else {
+        t = `0${t}`
+    }
+
+    let h = d.getHours();
+    let mnt = d.getMinutes();
+    let dtk = d.getSeconds();
+
+    return `${y}/${m}/${t} ${h}:${mnt}:${dtk}`;
+}
+
+function showAllRecord(){
+    let allScoreWrapper = document.getElementById('all-score-wrapper');
+    let exportXLS = document.getElementById('export')
+
+    allScoreWrapper.style.display = "block"
+    exportXLS.style.display = "block";
+
+    exportXLS.onclick = ()=>{
+        exportToXLS();
+    }
+
+    let tbodyRecord = document.getElementById('tbody-record');
+    tbodyRecord.innerHTML = "";
+
+    let controlShow = ['tanggal','nama','kelas','sekolah','nilai1', 'nilai2', 'nilai3', 'nilai4']
+
+    if(localStorage.getItem('dataNilai') == null){
+        return alert('No data found !');
+    }
+    else {
+        let dataNilai = localStorage.getItem('dataNilai');
+        dataNilai = JSON.parse(dataNilai);
+
+        let n = 1;
+        Array.from(dataNilai).forEach((item)=>{
+            let tr = document.createElement('tr');
+            let td = document.createElement('td');
+            td.textContent = n;
+            tr.appendChild(td)
+            for(let i of controlShow){
+                let tdN = document.createElement('td');
+                tdN.textContent = item[i]
+                tr.appendChild(tdN);
+            }
+
+            tbodyRecord.appendChild(tr);
+            ++n;
+        })
+    }
+}
+let tombolShowRecord = document.getElementById('show-all');
+tombolShowRecord.onclick = ()=>{
+    showAllRecord();
+}
+
+
+// Fungsi untuk export ke XLSX
+function exportToXLS() {
+            /* Ambil data dari tabel HTML */
+    const table = document.getElementById('table-record');
+    const ws = XLSX.utils.table_to_sheet(table, {
+        cellDates: true, // Penting: agar tanggal dikenali sebagai objek tanggal Excel
+        dateNF: "dd/mm/yyyy hh:mm:ss", // Format yang diinginkan (tanggal dan waktu)
+
+    });
+
+            /* Buat workbook baru */
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Data Hasil Penilaian");
+
+            /* Tulis file XLSX */
+    XLSX.writeFile(wb, "PMM_data_analisa_video" +".xlsx");
 }
