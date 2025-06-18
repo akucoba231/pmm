@@ -76,7 +76,7 @@ input, select {
     padding: 1rem;
     text-align: center;
     margin: 1rem 0;
-    min-height: 200px;
+    min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -87,11 +87,18 @@ input, select {
     font-size: 5rem;
     color: #aaa;
     margin-bottom: 1rem;
-    width: 640px;
+    width: clamp(320px, 640px, 640px);
     height: auto;
     display: block;
     vertical-align: middle;
     position: relative;
+}
+
+.video-placeholder video {
+    position: relative;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 button {
@@ -186,6 +193,7 @@ footer {
     }
 }
 
+
 .box {
   position: absolute;
   background: rgba(255,100,50, .5);
@@ -215,4 +223,56 @@ footer {
     color: #fff;
     border: none;
     width: 25%;
+}
+
+.all-score {
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.all-score button {
+    display: inline-block;
+    width: 50%;
+    background: #fff;
+    color: #222;
+    box-shadow: 2px 2px 5px #000;
+    transition: 1s;
+}
+
+.all-score button:last-child {
+    width: 25%;
+    background: #006100;
+    margin-left: 25%;
+    color: #fff;
+}
+
+.all-score button:active {
+    box-shadow: inset 2px 2px 3px #000;
+}
+
+#all-score-wrapper {
+    display: none;
+    margin-top: 2%;
+    width: 100%;
+    height: auto;
+    overflow: scroll;
+    border-radius: 10px;
+}
+
+#all-score-wrapper table tr > th, td {
+    border: 1px solid #aaa;
+    padding: 1px 2px;
+    white-space: nowrap;
+}
+
+#all-score-wrapper table tr th {
+    background: #5a5a5a;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+#export {
+    display: none;
 }
