@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Kang Cecep" />
-    <meta name="description" content="">
+    <meta name="description" content="Program Analisa Video dengan Mediapipe">
     <title>PMM - Penilaian Manipulatif Movement</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script
     <!-- You can replace JSDeliver with another CDN if you prefer to -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js"
     crossorigin="anonymous"></script>
@@ -147,34 +148,38 @@
         <div id="overall-result" class="card" style="display: none;">
             <h2>Hasil Keseluruhan</h2>
             <table class="overall-table">
-                    <tr>
-                        <td>Nama</td>
-                        <td class="show-data"></td>
-                    </tr>
-                    <tr>
-                        <td>Kelas</td>
-                        <td class="show-data"></td>
-                    </tr>
-                    <tr>
-                        <td>Sekolah</td>
-                        <td class="show-data"></td>
-                    </tr>
-                    <tr>
-                        <td>Nilai Lempar</td>
-                        <td class="show-data"></td>
-                    </tr>
-                    <tr>
-                        <td>Nilai Tangkap</td>
-                        <td class="show-data"></td>
-                    </tr>
-                    <tr>
-                        <td>Nilai Memukul</td>
-                        <td class="show-data"></td>
-                    </tr>
-                    <tr>
-                        <td>Nilai Menendang</td>
-                        <td class="show-data"></td>
-                    </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td id="tanggal"></td>
+                </tr>
+                <tr>
+                    <td>Nama</td>
+                    <td class="show-data"></td>
+                </tr>
+                <tr>
+                    <td>Kelas</td>
+                    <td class="show-data"></td>
+                </tr>
+                <tr>
+                    <td>Sekolah</td>
+                    <td class="show-data"></td>
+                </tr>
+                <tr>
+                    <td>Nilai Lempar</td>
+                    <td class="show-data"></td>
+                </tr>
+                <tr>
+                    <td>Nilai Tangkap</td>
+                    <td class="show-data"></td>
+                </tr>
+                <tr>
+                    <td>Nilai Memukul</td>
+                    <td class="show-data"></td>
+                </tr>
+                <tr>
+                    <td>Nilai Menendang</td>
+                    <td class="show-data"></td>
+                </tr>
             </table>
             
         </div>
@@ -183,6 +188,41 @@
             <button id="reset">Reset Semua</button>
             <button id="record">Hasil Lengkap</button>
         </div>
+
+        <div class="all-score">
+            <button id="show-all">Lihat semua nilai</button>
+            <button id="export">Export to excel</button>
+        </div>
+
+        <div id="all-score-wrapper">
+            <table cellspacing="1" cellpadding="1" id="table-record">
+                <thead>
+                    <tr>
+                        <th colspan="9">
+                            Data Hasil Penilaian dari Program PMM
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="9"></th>
+                    </tr>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Nama</th>
+                        <th>Kelas</th>
+                        <th>Sekolah</th>
+                        <th>Nilai Melempar</th>
+                        <th>Nilai Menangkap</th>
+                        <th>Nilai Memukul</th>
+                        <th>Nilai Menendang</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-record">
+
+                </tbody>
+            </table>
+        </div>
+
     </div>
     
     <footer>
